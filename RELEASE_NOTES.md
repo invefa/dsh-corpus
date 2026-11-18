@@ -9,8 +9,7 @@ reorganised code says it is a refactor with no behaviour change, and nothing mor
 
 ## [0.8.3] - 2026-11-19
 
-The published single-file build now contains only compiled output; source files are no longer
-included. Behaviour is unchanged.
+Internal cleanup; behaviour unchanged.
 
 ## [0.8.0] - 2026-11-19
 
