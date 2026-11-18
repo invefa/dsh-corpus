@@ -7,6 +7,10 @@ reorganised code says it is a refactor with no behaviour change, and nothing mor
 
 [简体中文](RELEASE_NOTES.zh-CN.md)
 
+## [0.8.0] - 2026-11-19
+
+Internal code refactor; behaviour unchanged.
+
 ## [0.4.0] - 2026-11-18
 
 Code refactor; behaviour unchanged.
