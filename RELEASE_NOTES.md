@@ -2,6 +2,19 @@
 
 [简体中文](RELEASE_NOTES.zh-CN.md)
 
+## [0.20.0] - 2026-11-20
+
+### Added
+
+- The plugin updates itself. The About page shows the published version and a button that downloads
+  it and keeps it ready; the swap happens at the next start, with the previous files kept beside it.
+  An installation that is a source checkout is left to git.
+
+### Changed
+
+- Settings labels, form captions, group headers and inactive tabs are readable again; the dimmest
+  colour stays with counts and small glyphs.
+
 ## [0.19.5] - 2026-11-20
 
 ### Changed

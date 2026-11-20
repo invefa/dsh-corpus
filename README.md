@@ -7,13 +7,13 @@ Release builds for **Corpus**, a plugin for the DeepSeek Harness desktop app.
 The source is not published here. This repository carries the build, this readme and the
 [release notes](RELEASE_NOTES.md).
 
-Latest version: **0.19.5**
+Latest version: **0.20.0**
 
 ## Download
 
 | File |
 | --- |
-| `corpus-0.19.5-single.zip` |
+| `corpus-0.20.0-single.zip` |
 
 Every release ships one archive: a single-file build that runs as it is.
 
@@ -58,6 +58,12 @@ The operator prompt injected into every turn is assembled from Markdown files yo
 ### Skills
 
 Installed skills can be exported as a package and imported back, and the list can be re-read from the page. An exported package carries the skill's description and content, so it can be moved to another machine.
+
+### Updates
+
+The About page shows the running version beside the published one, with a button that downloads that build. The download is checked against the version it claims and dropped if it does not match; a good one is kept locally and swapped in at the next start, with the previous files backed up beside it.
+
+An installation running from source is not replaced: the page says to update it with git, so a working tree never turns into a release build.
 
 ### Two surfaces
 
