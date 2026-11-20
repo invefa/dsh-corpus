@@ -19,29 +19,49 @@ Every release ships one archive: a single-file build that runs as it is.
 
 ## Features
 
-- **Command approval**: A rule table decides what may run: a command that matches an allow rule
-  passes, one that matches an ask rule waits for you, and one that matches a deny rule is stopped
-  before it starts. A master switch turns the whole gate off, and with no rule or no match a command
-  behaves exactly as it did before the gate existed.
-- **Four answers on a waiting command**: Allow once, allow for this session, allow for good, deny. A
-  permanent approval becomes a rule you can see and revoke on the same page.
-- **An explanation with every stop**: A stopped command makes the model say what it does and why it
-  was stopped, and that answer is kept next to the decision and in the history.
-- **Preset rules that match your system**: A minimal set covers destructive and irreversible
-  commands, an extended set covers audit-adjacent ones, and each preset is filtered to the platform
-  it applies to. Import adds only what is missing, so a rule you edited stays yours.
-- **A patch table per host build**: Every rule is listed with its state: waiting to be applied, in
-  place, or not applicable to this build. Each rule can be opened to see what it changes before it
-  is switched on.
-- **Nothing is lost**: Every file is backed up before it is touched, and any change can be reverted
-  on its own or in a batch.
-- **Prompt injection**: The operator prompt is assembled from Markdown files you own and injected
-  into every turn, with its size shown in characters and tokens.
-- **Rule sets**: Markdown rules can be written into a workspace so an agent working there reads them.
-- **Skills**: Installed skills can be exported and imported, and the list can be refreshed from the
-  page.
-- **Two ways to look at it**: The panel opens as a page or as a small window beside the chat, and the
-  tab shows how many commands are waiting.
+### Command approval
+
+Before every bash or pwsh call, the plugin runs the command text against a rule table. A command that matches an allow rule runs; one that matches an ask rule waits for your answer; one that matches a deny rule stops before it starts, and the reply carries the rule name and the matched text.
+
+Rules are matched in order but decided by action. When several rules match one command, deny outranks ask and ask outranks allow; between rules with the same action, the earlier one speaks. When an allow and an ask both match, the narrower rule wins, so a small allow can clear a routine case like deleting build output without switching off a broad ask on recursive deletes.
+
+The master switch sits at the top of the page. With it off, the rules stay where they are and every command goes to the host policy, exactly as it did before the gate existed. An empty table or a table with everything disabled behaves the same way, so a missing rule never turns into a blanket stop.
+
+### Waiting and decisions
+
+A command that matches ask joins a queue in arrival order. The page shows the command, the matched rule, the session it came from and its position. The same command from the same session does not queue twice; it returns to the open entry and keeps the first explanation.
+
+There are four answers: allow once, allow for this session, allow for good, deny. Allow once covers that call only. Allow for this session records the rule against the session and ends with it. Allow for good writes an allow rule into the table, where it can be disabled or deleted like any other. Deny and timeout both stop the command and return the reason.
+
+The wait is 120 seconds by default and can be changed in settings, with 0 meaning no limit. The queue holds 20 entries; beyond that a new command is refused rather than silently passed. A call cancelled while waiting is recorded as cancelled instead of leaving a question nobody can answer.
+
+### After a stop
+
+Every stop asks the model to say what the command does, why it was stopped and whether a safer form exists before it goes further; retrying the same command, or an equivalent one, before that explanation is discouraged. The answer is kept with the waiting entry and in the history, and it can be expanded on the page.
+
+If the model retries without explaining, the second judgement runs as usual and that history entry is marked as retried without an explanation. The mark is a record, not a block, so a hurried retry does not turn into a loop.
+
+### Preset rules
+
+The plugin ships a preset list in two tiers. The minimal set has 36 rules and covers nearly irreversible work such as deleting the root, writing to a block device, formatting, piping a download into a shell, reverse shells, reading a private key and dropping a database, along with work worth a look such as installing dependencies, registering scheduled jobs, force-pushing and restarting the machine. The extended set has 8 rules around audit-adjacent work such as clearing shell history, clearing an event log, rewriting commits and changing the firewall, and is not imported by default.
+
+Each preset carries a platform tag and is filtered to the current system: Windows takes the rules about accounts and the registry, other systems take the shell and mount rules. Import adds only what is missing, so a rule you edited keeps your version, while a preset you deleted comes back. The import button reports how many were added, skipped and failed.
+
+### Patch table
+
+Patches are grouped by the host build, because a different build changes in different places. Every rule shows its state: waiting to be applied, in place, or not applicable to this build. Opening a rule shows which files and lines it touches before it is switched on. Each touched file is backed up first, and any change can be reverted on its own or all at once.
+
+### Prompt and rule sets
+
+The operator prompt injected into every turn is assembled from Markdown files you maintain, and the page shows its size in characters and tokens so a runaway file is visible. Rule sets are separate: a Markdown rule file can be written into a chosen workspace, and an agent working there reads the file itself instead of being told the rules again each turn.
+
+### Skills
+
+Installed skills can be exported as a package and imported back, and the list can be re-read from the page. An exported package carries the skill's description and content, so it can be moved to another machine.
+
+### Two surfaces
+
+The panel opens as a page or as a small window beside the chat. Both read the same state, so the selected rule and the open blocks survive the switch. The tab shows how many commands are waiting and disappears at zero, and a new command raises a notice that jumps to the page and stays dismissed once closed.
 
 ## Install
 
