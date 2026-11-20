@@ -2,6 +2,18 @@
 
 [简体中文](RELEASE_NOTES.zh-CN.md)
 
+## [0.20.1] - 2026-11-20
+
+### Added
+
+- A sandbox starter for a newer host build: point it at a snapshot directory and it serves that build
+  on its own port with its own state, so a build is tested before the daily install is replaced.
+
+### Changed
+
+- The patch table was run against the next host build in that sandbox. Of the 39 entries in scope, 35
+  applied and none needed a new anchor; the other four point at targets that build no longer carries.
+
 ## [0.20.0] - 2026-11-20
 
 ### Added
