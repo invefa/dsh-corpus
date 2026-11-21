@@ -2,6 +2,43 @@
 
 [简体中文](RELEASE_NOTES.zh-CN.md)
 
+## [0.21.1] - 2026-11-21
+
+### Changed
+
+- The patch table names the current host build as one it was verified against, so a start no longer
+  reports the table and the host as being written for different versions. Nothing in the table
+  changed: every entry that applies to that build finds its anchor as it did before.
+
+### Fixed
+
+- A build the table already handles no longer shows the mismatch notice.
+
+## [0.21.0] - 2026-11-21
+
+### Added
+
+- An official update no longer leaves the plugin without a host. When the archive is back in place
+  and the unpacked tree is gone, the next start rebuilds that tree from the archive once, then
+  continues on it. A setting turns the rebuild off.
+- Host discovery also looks inside the archive, so the installed build is recognised even before the
+  tree is rebuilt.
+
+### Changed
+
+- The start-up journal records a rebuild that happened, including the directory it produced.
+
+## [0.20.2] - 2026-11-21
+
+### Fixed
+
+- The small window opens where it can be seen. Its saved rectangle was applied as stored, so a
+  position remembered from a larger screen, a different zoom or another monitor put the window
+  outside the visible area. The rectangle is now converged into the current window when it opens
+  and again on a resize, and the button state and the window read the same value.
+- The window registers before anything else in the panel, so a slot name that changes with a host
+  upgrade takes down one entry instead of the window along with it.
+
 ## [0.20.1] - 2026-11-20
 
 ### Added

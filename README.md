@@ -7,13 +7,13 @@ Release builds for **Corpus**, a plugin for the DeepSeek Harness desktop app.
 The source is not published here. This repository carries the build, this readme and the
 [release notes](RELEASE_NOTES.md).
 
-Latest version: **0.20.1**
+Latest version: **0.21.1**
 
 ## Download
 
 | File |
 | --- |
-| `corpus-0.20.1-single.zip` |
+| `corpus-0.21.1-single.zip` |
 
 Every release ships one archive: a single-file build that runs as it is.
 
